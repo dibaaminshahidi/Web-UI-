@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Smart Locker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  
+
+  
+  <script>
+
+    window.onload = function () {
+    
+    //Better to construct options first and then pass it as a parameter
+    var options = {
+      animationEnabled: true,
+      exportEnabled: true,
+      theme: "light2",
+      title:{
+        text: "DEMO CHART"
+      },
+      axisY:{
+        title: "Monthly Usage",
+      },
+      data: [{
+        type: "scatter",
+        dataPoints: [
+          { x: new Date(2020, 0, 01), y: 10 },
+          { x: new Date(2020, 01, 01), y: 3 },
+          { x: new Date(2020, 02, 01), y: 4 },
+          { x: new Date(2020, 03, 01), y: 5 },
+          { x: new Date(2020, 04, 01), y: 0 },
+          { x: new Date(2020, 05, 01), y: 0 },
+          { x: new Date(2020, 06, 01), y: 0 },
+          { x: new Date(2020, 07, 01), y: 0 },
+          { x: new Date(2020, 08, 01), y: 0 },
+          { x: new Date(2020, 09, 01), y: 0 },
+          { x: new Date(2020, 10, 01), y: 0 },
+          { x: new Date(2020, 11, 01), y: 0 },
+        ]
+      }]
+    };
+    
+    $("#chartContainer").CanvasJSChart(options);
+    }
+  </script>    
+</head>
+<body>
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>FUM Smart Locker </h1>
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified " >
+  <ul class="nav nav-pills ">
+
+    <li class="nav-item dropdown ">
+      
+      <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+        </svg>
+        Menu
+      </a>
+      <div class="dropdown-menu ">
+        <a class=" dropdown-item active" href="#">Dashboard</a>
+        <a class="dropdown-item" href="#">Account</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Sign Out</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+
+
+<div class="container" style="margin-bottom:30px;">
+  <div class="row" style="margin-top:30px;" >
+    <div class="col-sm-4 " style="max-height:400px;margin-top:30px;margin-bottom:30px;">
+      <h5 style = "margin-bottom:30px; "> 
+Locker A32      </h5>
+<div class ="col-sm-12 text-center " style="padding-bottom: 20px;">
+    <svg class="bi bi-lock" width="14em" height="14em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 00-1 1v5a1 1 0 001 1h7a1 1 0 001-1V9a1 1 0 00-1-1zm-7-1a2 2 0 00-2 2v5a2 2 0 002 2h7a2 2 0 002-2V9a2 2 0 00-2-2h-7zm0-3a3.5 3.5 0 117 0v3h-1V4a2.5 2.5 0 00-5 0v3h-1V4z" clip-rule="evenodd"/>
+      </svg>
+
+  <!-- <svg class="bi bi-unlock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M.5 9a2 2 0 012-2h7a2 2 0 012 2v5a2 2 0 01-2 2h-7a2 2 0 01-2-2V9z"/>
+    <path fill-rule="evenodd" d="M8.5 4a3.5 3.5 0 117 0v3h-1V4a2.5 2.5 0 00-5 0v3h-1V4z" clip-rule="evenodd"/>
+  </svg>
+   -->
+</div>
+      <button type="button" class="btn btn-primary btn-lg btn-block ">Unlock </button>
+
+    </div>
+    <div class="col-sm-8" style="height:400px;margin-top:30px;">
+      <div id="chartContainer" ></div>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0px;">
+</div>
+
+</body>
+</html>
+
+
+
