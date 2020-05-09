@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>FUM Smart Locker</title>
+  <title>Admin Panel</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -47,9 +47,12 @@
     }
   </script>    
 </head>
+
 <body>
 <div class="jumbotron text-center" style="margin-bottom:0">
   <h1>FUM Smart Locker </h1>
+  <h3>Admin Panel </h3>
+
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified " >
@@ -65,7 +68,8 @@
       </a>
       <div class="dropdown-menu ">
         <a class=" dropdown-item active" href="#">Dashboard</a>
-        <a class="dropdown-item" href="#">Account</a>
+        <a class="dropdown-item" href="#">Users</a>
+        <a class="dropdown-item" href="#">Lockers</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Sign Out</a>
       </div>
@@ -77,33 +81,58 @@
 
 <div class="container" style="margin-bottom:30px;">
   <div class="row" style="margin-top:30px;" >
-    <div class="col-sm-4 " style="max-height:400px;margin-top:30px;margin-bottom:30px;">
-      <h5 style = "margin-bottom:30px;"> 
-        No Locker Has Been Booked
-      </h5>
- <div class="col-lg-2 d-none d-lg-block " > 
-  <br>
+    <table class="table table-bordered ">
+      <thead>
+        <tr>
+          <th scope="col" class="table-hover">ID</th>
+          <th scope="col">Activation Status</th>
+          <th scope="col">Status</th>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">A31</th>
+          <td colspan="2" class="table-secondary">Open</td>
+        </tr>
+        <tr>
+          <th scope="row ">A32</th>
+          <td class="table-primary">Booked</td>
+          <td class="table-danger">Unlocked</td>
 
-      </div>
+        </tr>
+        <tr>
+          <th scope="row ">A33</th>
+          <td class="table-primary">Booked</td>
+          <td class="table-danger">Unlocked</td>
 
-      <button type="button" class="btn btn-primary btn-lg btn-block ">Book Locker </button>
+        </tr>
+        <tr>
+          <th scope="row">A34</th>
+          <td class="table-primary">Booked</td>
+          <td class="table-success">Locked</td>
+        </tr>
+        <tr>
+          <th scope="row">A35</th>
+          <td colspan="2" class="table-secondary">Open</td>
+        </tr>
+        <tr>
+          <th scope="row">A36</th>
+          <td colspan="2" class="table-secondary">Open</td>
+        </tr>
+        <tr>
+          <th scope="row ">A37</th>
+          <td class="table-primary">Booked</td>
+          <td class="table-danger">Unlocked</td>
 
-    </div>
-    <div class="col-sm-8" style="height:400px;margin-top:30px;">
-      <div id="chartContainer" ></div>
-    </div>
+        </tr>
+        <tr>
+          <th scope="row">A38</th>
+          <td colspan="2" class="table-secondary">Open</td>
+        </tr>
+
+      </tbody>
+    </table>
   </div>
 </div>
 
