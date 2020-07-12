@@ -7,48 +7,47 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-  
+     
   <script>
-    window.onload = function () {
-    //Better to construct options first and then pass it as a parameter
-    var options = {
-      animationEnabled: true,
-      exportEnabled: true,
-      theme: "light2",
-      title:{
-        text: "DEMO CHART"
-      },
-      axisY:{
-        title: "Monthly Usage",
-      },
-      data: [{
-        type: "scatter",
-        dataPoints: [
-          { x: new Date(2020, 0, 01), y: 10 },
-          { x: new Date(2020, 01, 01), y: 3 },
-          { x: new Date(2020, 02, 01), y: 4 },
-          { x: new Date(2020, 03, 01), y: 5 },
-          { x: new Date(2020, 04, 01), y: 0 },
-          { x: new Date(2020, 05, 01), y: 0 },
-          { x: new Date(2020, 06, 01), y: 0 },
-          { x: new Date(2020, 07, 01), y: 0 },
-          { x: new Date(2020, 08, 01), y: 0 },
-          { x: new Date(2020, 09, 01), y: 0 },
-          { x: new Date(2020, 10, 01), y: 0 },
-          { x: new Date(2020, 11, 01), y: 0 },
-        ]
-      }]
-    };
-    
-    $("#chartContainer").CanvasJSChart(options);
+    function loadXMLDoc() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          myFunction(this);
+        }
+      };
+      xmlhttp.open("GET", "5.160.146.108:8080/locker/0/info", true);
+      xmlhttp.setRequestHeader("token", "adminToken","Access-Control-Allow-Origin","*");
+      xmlhttp.send();
     }
-  </script>    
+    function myFunction(xml) {
+      var i;
+      var xmlDoc = xml.responseXML;
+      var table= "<tr><th>ID</th><th>Status</th></tr>";
+      var x = xmlDoc.getElementsByTagName("LOCKER");
+      for (i = 0; i <x.length; i++) { 
+        if(x[i].getElementsByTagName("lockerStatus")){
+        table += "<tr><td>" +
+        x[i].getElementsByTagName("lockerId")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("lockerStatus")[0].childNodes[0].nodeValue +
+        "</td></tr>";
+      }
+    }
+      document.getElementById("demo").innerHTML = table;
+    }
+    </script>
+
 </head>
 
 <body>
+
+  <button type="button" onclick="loadXMLDoc()">Get my CD collection</button>
+
+
 <div class="jumbotron text-center" style="margin-bottom:0">
   <h1>FUM Smart Locker </h1>
   <h3>Admin Panel </h3>
@@ -77,21 +76,11 @@
   </ul>
 </nav>
 
-
-
 <div class="container" style="margin-bottom:30px;">
   <div class="row" style="margin-top:30px;" >
-    <table class="table table-bordered ">
-      <thead>
-        <tr>
-          <th scope="col" class="table-hover">ID</th>
-          <th scope="col">Activation Status</th>
-          <th scope="col">Status</th>
+    <table class="table table-bordered " id="demo">
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
+        <!-- <tr>
           <th scope="row">A31</th>
           <td colspan="2" class="table-secondary">Open</td>
         </tr>
@@ -129,9 +118,8 @@
         <tr>
           <th scope="row">A38</th>
           <td colspan="2" class="table-secondary">Open</td>
-        </tr>
+        </tr> -->
 
-      </tbody>
     </table>
   </div>
 </div>
