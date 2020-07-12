@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+     
+</head>
+
+<body>
+
+
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>FUM Smart Locker </h1>
+  <h3>Admin Panel </h3>
+
+</div>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified " >
+  <ul class="nav nav-pills ">
+
+    <li class="nav-item dropdown ">
+      
+      <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+        </svg>
+        Menu
+      </a>
+      <div class="dropdown-menu ">
+        <a class=" dropdown-item active" href="#">Dashboard</a>
+        <a class="dropdown-item" href="#">Users</a>
+        <a class="dropdown-item" href="#">Lockers</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Sign Out</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div class="container" style="margin-bottom:30px;">
+  <div class="row" style="margin-top:30px;" >
+    <div class="d-block ">
+
+    <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <input class="form-control" id="userID" placeholder="USER ID">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search!</button>
+      </form>
+
+      <form class="form-inline">
+        <div class="form-group mx-sm-3 mb-2">
+          <input class="form-control" id="lockerID" placeholder="LOCKER ID">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2"> Search!</button>
+      </form>
+
+    </div>
+    <table class="table table-bordered " id="demo">
+        <!-- fill later.../ -->
+    </table>
+  </div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0px;">
+</div>
+
+</body>
+</html>
+
