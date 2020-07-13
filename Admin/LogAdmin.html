@@ -1,78 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Admin Panel</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-     
+<head>
+    <title>Admin Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <!-- <script>
+      
+    // function loadXMLDoc() {
+    //   var xmlhttp = new XMLHttpRequest();
+    //   xmlhttp.onreadystatechange = function() {
+    //     if (this.readyState == 4 && this.status == 200) {
+    //       searchLocker(this);
+    //     }
+    //   };
+    //   xmlhttp.open("GET", "http://5.160.146.108:8080/locker/0/info", true);
+    //   xmlhttp.setRequestHeader("token", "adminToken");
+    //   xmlhttp.send();
+    // }
+    // function searchLocker(xml) {
+    //   var i;
+    //   var xmlDoc = xml.responseXML;
+    //   var table= "<tr><th>ID</th><th>Status</th></tr>";
+    //   console.log(xmlDoc)
+    // //   var x = xmlDoc.getElements("lockerHistoryInfos");
+    // //   for (i = 0; i <x.length; i++) { 
+    // //     table += "<tr><td>" +
+    // //     x[i].getElementsByTagName("action")[0].childNodes[0].nodeValue +
+    // //     "</td><td>" +
+    // //     x[i].getElementsByTagName("time")[0].childNodes[0].nodeValue +
+    // //     "</td></tr>";
+    // //   }
+    // //   document.getElementById("demo").innerHTML = table;
+    // }
+    // 
+$.ajax({
+  type: 'GET',
+  url: "http://5.160.146.108:8080/locker/0/info",
+  data: data,
+  async: true,
+  beforeSend: function (xhr) {
+    if (xhr && xhr.overrideMimeType) {
+      xhr.overrideMimeType('application/json;charset=utf-8');
+    }
+  },
+  dataType: 'json',
+  success: function (data) {
+      console.log(data)
+  }
+});
+    </script> -->
+
+    </script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $("#lockbutt").click(function (event) {
+                $.getJSON('http://5.160.146.108:8080/locker/0/info', function (locker) {
+                    var table = "<tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr>";
+                    console.log(locker)
+                    var info = locker.locketHistoryInfos
+                    console.log(info)
+                    for (i = 0; i < info.length; i++) {
+
+                        console.log(info[i].action)
+                        table += "<tr><td>" +
+                            info[i].action +
+                            "</td><td>" +
+                            info[i].userInfo.userId +
+                            "</td><td>" +
+                            info[i].userInfo.username +
+                            "</td><td>" +
+                            info[i].time +
+                            "</td></tr>";
+                    }
+
+                    document.getElementById("id").innerHTML = "Locker ID :" + locker.lockerId;
+                    document.getElementById("loginfo").innerHTML = table;
+
+                });
+            });
+        }); 
+    </script>
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#usbutt").click(function (event) {
+            $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
+                var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
+                console.log(user)
+                var info = user.userHistoryInfos
+                console.log(info)
+                for (i = 0; i < info.length; i++) {
+
+                    console.log(info[i].action)
+                    table += "<tr><td>" +
+                        info[i].userLockerInfo.lockerId +
+                        "</td><td>" +
+                        info[i].action +
+                        "</td><td>" +
+                        info[i].time +
+                        "</td></tr>";
+                }
+
+                document.getElementById("id").innerHTML = "User Name :" + user.username;
+                document.getElementById("loginfo").innerHTML = table;
+
+            });
+        });
+    }); 
+</script>
+
 </head>
 
 <body>
-
-
-
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <h1>FUM Smart Locker </h1>
-  <h3>Admin Panel </h3>
-
-</div>
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified " >
-  <ul class="nav nav-pills ">
-
-    <li class="nav-item dropdown ">
-      
-      <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
-        </svg>
-        Menu
-      </a>
-      <div class="dropdown-menu ">
-        <a class=" dropdown-item active" href="#">Dashboard</a>
-        <a class="dropdown-item" href="#">Users</a>
-        <a class="dropdown-item" href="#">Lockers</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Sign Out</a>
-      </div>
-    </li>
-  </ul>
-</nav>
-
-<div class="container" style="margin-bottom:30px;">
-  <div class="row" style="margin-top:30px;" >
-    <div class="d-block ">
-
-    <form class="form-inline">
-        <div class="form-group mx-sm-3 mb-2">
-          <input class="form-control" id="userID" placeholder="USER ID">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Search!</button>
-      </form>
-
-      <form class="form-inline">
-        <div class="form-group mx-sm-3 mb-2">
-          <input class="form-control" id="lockerID" placeholder="LOCKER ID">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2"> Search!</button>
-      </form>
+    <div class="jumbotron text-center" style="margin-bottom:0">
+        <h1>FUM Smart Locker </h1>
+        <h3>Admin Panel </h3>
 
     </div>
-    <table class="table table-bordered " id="demo">
-        <!-- fill later.../ -->
-    </table>
-  </div>
-</div>
 
-<div class="jumbotron text-center" style="margin-bottom:0px;">
-</div>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified ">
+        <ul class="nav nav-pills ">
+
+            <li class="nav-item dropdown ">
+
+                <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                    aria-expanded="false">
+                    <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Menu
+                </a>
+                <div class="dropdown-menu ">
+                    <a class=" dropdown-item active" href="#">Dashboard</a>
+                    <a class="dropdown-item" href="#">Users</a>
+                    <a class="dropdown-item" href="#">Lockers </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Sign Out</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container" style="margin-bottom:30px;">
+        <div class="row" style="margin-top:30px;">
+            <div class="d-block ">
+
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input class="form-control" id="userID" placeholder="USER ID">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" id="usbutt">Search!</button>
+                </form>
+
+                <form class="form-inline">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input class="form-control" id="lockerID" placeholder="LOCKER ID">
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" id="lockbutt"> Search!</button>
+                </form>
+
+
+                <h3 id="id"></h3>
+                <table class="table table-bordered " id="loginfo">
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron text-center" style="margin-bottom:0px;">
+    </div>
 
 </body>
-</html>
 
+</html>
