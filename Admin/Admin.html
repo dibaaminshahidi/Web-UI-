@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Admin Panel</title>
   <meta charset="utf-8">
@@ -10,77 +11,111 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-     
-  <script>
-    function loadXMLDoc() {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          myFunction(this);
+
+
+  <script type="text/javascript">
+    $.ajax({
+      url: 'http://5.160.146.108:8080/locker/info',
+      dataType: 'json',
+      headers: {
+        'token': 'adminToken  '   },
+      success: function (data) {
+        var table = "<th>ID</th><th> Status </th><th> Owner </th>";
+        console.log(data)
+        console.log(data.lockersInfo[0].id)
+
+        for (var i = 0; i < data.lockersInfo.length; i++) {
+          console.log(data.lockersInfo[i].id)
+          table += "<tr><td>" +
+            data.lockersInfo[i].id 
+            if(data.lockersInfo[i].status == "CLOSE"){
+            table += "</td><td class=table-success>" +
+            data.lockersInfo[i].status;
+            }
+            else{
+              table += "</td><td class=table-danger >" +
+            data.lockersInfo[i].status;
+            }
+            if (data.lockersInfo[i].ownerInfo!= null){
+            table +=  "</td><td>" +
+            data.lockersInfo[i].ownerInfo.username;
+            }            
+            else
+            table +=  "</td ><td class=table-secondary > NOT RESERVED"
         }
-      };
-      xmlhttp.open("GET", "http://5.160.146.108:8080/locker/0/info", true);
-      xmlhttp.setRequestHeader("token", "adminToken","Access-Control-Allow-Origin","*");
-      xmlhttp.send();
-    }
-    function myFunction(xml) {
-      var i;
-      var xmlDoc = xml.responseXML;
-      var table= "<tr><th>ID</th><th>Status</th></tr>";
-      var x = xmlDoc.getElementsByTagName("LOCKER");
-      for (i = 0; i <x.length; i++) { 
-        if(x[i].getElementsByTagName("lockerStatus")){
-        table += "<tr><td>" +
-        x[i].getElementsByTagName("lockerId")[0].childNodes[0].nodeValue +
-        "</td><td>" +
-        x[i].getElementsByTagName("lockerStatus")[0].childNodes[0].nodeValue +
-        "</td></tr>";
+        document.getElementById("overall").innerHTML = table;
+      },  
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('Error: ' + textStatus + ' - ' + errorThrown);
       }
-    }
-      document.getElementById("demo").innerHTML = table;
-    }
-    </script>
+    });
+  </script>
+
+  <!-- <script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#usbutt").click(function (event) {
+            $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
+                var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
+                console.log(user)
+                var info = user.userHistoryInfos
+                console.log(info)
+                for (i = 0; i < info.length; i++) {
+
+                    console.log(info[i].action)
+                    table += "<tr><td>" +
+                        info[i].userLockerInfo.lockerId +
+                        "</td><td>" +
+                        info[i].action +
+                        "</td><td>" +
+                        info[i].time +
+                        "</td></tr>";
+                }
+
+                document.getElementById("loginfo").innerHTML = table;
+
+            });
+        });
+    }); 
+</script> -->
 
 </head>
 
 <body>
 
-  <button type="button" onclick="loadXMLDoc()">Get my CD collection</button>
+  <div class="jumbotron text-center" style="margin-bottom:0">
+    <h1>FUM Smart Locker </h1>
+    <h3>Admin Panel </h3>
 
+  </div>
 
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <h1>FUM Smart Locker </h1>
-  <h3>Admin Panel </h3>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified ">
+    <ul class="nav nav-pills ">
 
-</div>
+      <li class="nav-item dropdown ">
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified " >
-  <ul class="nav nav-pills ">
+        <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z"
+              clip-rule="evenodd" />
+          </svg>
+          Menu
+        </a>
+        <div class="dropdown-menu ">
+          <a class=" dropdown-item active" href="#">Dashboard</a>
+          <a class="dropdown-item" href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/LogAdmin.html">Logs</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Sign Out</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
-    <li class="nav-item dropdown ">
-      
-      <a class="nav-link dropdowntoggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        <svg class="bi bi-justify" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
-        </svg>
-        Menu
-      </a>
-      <div class="dropdown-menu ">
-        <a class=" dropdown-item active" href="#">Dashboard</a>
-        <a class="dropdown-item" href="#">Users</a>
-        <a class="dropdown-item" href="#">Lockers</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Sign Out</a>
-      </div>
-    </li>
-  </ul>
-</nav>
-
-<div class="container" style="margin-bottom:30px;">
-  <div class="row" style="margin-top:30px;" >
-    <table class="table table-bordered " id="demo">
-
-        <!-- <tr>
+  <div class="container" style="margin-bottom:30px;">
+    <div class="row" style="margin-top:30px;">
+      <table class="table table-bordered " id="overall">
           <th scope="row">A31</th>
           <td colspan="2" class="table-secondary">Open</td>
         </tr>
@@ -120,13 +155,13 @@
           <td colspan="2" class="table-secondary">Open</td>
         </tr> -->
 
-    </table>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class="jumbotron text-center" style="margin-bottom:0px;">
-</div>
+  <div class="jumbotron text-center" style="margin-bottom:0px;">
+  </div>
 
 </body>
-</html>
 
+</html>
