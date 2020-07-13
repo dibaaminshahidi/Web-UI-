@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <title>Admin Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,121 +12,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <!-- <script>
-      
-    // function loadXMLDoc() {
-    //   var xmlhttp = new XMLHttpRequest();
-    //   xmlhttp.onreadystatechange = function() {
-    //     if (this.readyState == 4 && this.status == 200) {
-    //       searchLocker(this);
-    //     }
-    //   };
-    //   xmlhttp.open("GET", "http://5.160.146.108:8080/locker/0/info", true);
-    //   xmlhttp.setRequestHeader("token", "adminToken");
-    //   xmlhttp.send();
-    // }
-    // function searchLocker(xml) {
-    //   var i;
-    //   var xmlDoc = xml.responseXML;
-    //   var table= "<tr><th>ID</th><th>Status</th></tr>";
-    //   console.log(xmlDoc)
-    // //   var x = xmlDoc.getElements("lockerHistoryInfos");
-    // //   for (i = 0; i <x.length; i++) { 
-    // //     table += "<tr><td>" +
-    // //     x[i].getElementsByTagName("action")[0].childNodes[0].nodeValue +
-    // //     "</td><td>" +
-    // //     x[i].getElementsByTagName("time")[0].childNodes[0].nodeValue +
-    // //     "</td></tr>";
-    // //   }
-    // //   document.getElementById("demo").innerHTML = table;
-    // }
-    // 
-$.ajax({
-  type: 'GET',
-  url: "http://5.160.146.108:8080/locker/0/info",
-  data: data,
-  async: true,
-  beforeSend: function (xhr) {
-    if (xhr && xhr.overrideMimeType) {
-      xhr.overrideMimeType('application/json;charset=utf-8');
-    }
-  },
-  dataType: 'json',
-  success: function (data) {
-      console.log(data)
-  }
-});
-    </script> -->
-
-    <!-- <script type="text/javascript" language="javascript">
-        $(document).ready(function () {
-            console.log('hi')
-            $("#lockbutt").click(function (event) {
-                $.getJSON('http://5.160.146.108:8080/locker/0/info', function (locker) {
-                    console.log(locker)
-
-                    var table = "<tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr>";
-                    console.log(locker)
-                    var info = locker.locketHistoryInfos
-                    console.log(info)
-                    for (i = 0; i < info.length; i++) {
-
-                        console.log(info[i].action)
-                        table += "<tr><td>" +
-                            info[i].action +
-                            "</td><td>" +
-                            info[i].userInfo.userId +
-                            "</td><td>" +
-                            info[i].userInfo.username +
-                            "</td><td>" +
-                            info[i].time +
-                            "</td></tr>";
-                    }
-
-                    document.getElementById("id").innerHTML = "Locker ID :" + locker.lockerId;
-                    document.getElementById("loginfo").innerHTML = table;
-
-                });
-           
-           
-            });
-        }); 
-    </script> -->
 
 
-    <script type="text/javascript" language="javascript">
-        $(document).ready(function () {
-            $("#usbutt").click(function (event) {
-                $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
-                    var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
+    <script type="text/javascript">
+        function usersearch() {
+            var geturl = 'http://5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
+            console.log(geturl)
+            $.ajax({
+                url: geturl,
+                dataType: 'json',
+                headers: {
+                    'token': 'adminToken  '
+                },
+                success: function (user) {
+                    var table = "<thead><tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr></thead>";
                     console.log(user)
                     var info = user.userHistoryInfos
                     console.log(info)
-                    for (i = 0; i < info.length; i++) {
+                    if (info.length == 0) {
+                        var usernolog = " Have No Log"
+                        console.log(usernolog)
+                    }
+                    else {
+                        var usernolog = ""
 
-                        console.log(info[i].action)
-                        table += "<tr><td>" +
-                            info[i].userLockerInfo.lockerId +
-                            "</td><td>" +
-                            info[i].action +
-                            "</td><td>" +
-                            info[i].time +
-                            "</td></tr>";
+                        for (i = 0; i < info.length; i++) {
+
+                            console.log(info[i].action)
+                            table += "<tbody><tr><td>" +
+                                info[i].userLockerInfo.lockerId +
+                                "</td><td>" +
+                                info[i].action +
+                                "</td><td>" +
+                                info[i].time +
+                                "</td></tr></tbody>";
+                        }
+                        document.getElementById("loginfo").innerHTML = table;
+
                     }
 
-                    document.getElementById("id").innerHTML = "User Name :" + user.username;
-                    document.getElementById("loginfo").innerHTML = table;
+                    document.getElementById("id").innerHTML = "Username : " + user.username + "<br>" + "User ID : " + user.id + usernolog;
 
-                });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error: ' + textStatus + ' - ' + errorThrown);
+                }
             });
-        }); 
+        }
     </script>
+
+
 
 
     <script type="text/javascript">
         function locksearch() {
+            var geturl = 'http://5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
+            console.log(geturl)
             $.ajax({
-                url: 'http://5.160.146.108:8080/locker/8/info',
+                url: geturl,
                 dataType: 'json',
                 headers: {
                     'token': 'adminToken  '
@@ -136,19 +80,21 @@ $.ajax({
 
                     console.log(locker)
                     var info = locker.locketHistoryInfos
+                    var owner = "Locker Is Open To Book";
+                    if (locker.currentOwner != null) {
+                        owner = locker.currentOwner.username;
+                    }
                     if (info.length == 0) {
                         var nolog = " Have No Log"
                     }
                     else {
                         var nolog = ""
-
-
-                        var table = "<tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr>";
+                        var table = "  <thead><tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr> </thead>";
                         console.log(info)
                         for (i = 0; i < info.length; i++) {
 
                             console.log(info[i].action)
-                            table += "<tr><td>" +
+                            table += "  <tbody><tr><td>" +
                                 info[i].action +
                                 "</td><td>" +
                                 info[i].userInfo.userId +
@@ -156,12 +102,12 @@ $.ajax({
                                 info[i].userInfo.username +
                                 "</td><td>" +
                                 info[i].time +
-                                "</td></tr>";
+                                "</td></tr>  </tbody>";
                         }
                         document.getElementById("loginfo").innerHTML = table;
 
                     }
-                    document.getElementById("id").innerHTML = "Locker ID :" + locker.lockerId + nolog;
+                    document.getElementById("id").innerHTML = "Locker ID : " + locker.lockerId + nolog + "<br> Current Owner : " + owner;
 
 
                 },
@@ -211,28 +157,35 @@ $.ajax({
 
     <div class="container" style="margin-bottom:30px;">
         <div class="row" style="margin-top:30px;">
-            <div class="d-block ">
+
+
+            <h3 id="id"></h3>
+
+
+            <table class="table table-bordered mx-sm-3 mb-2 " id="loginfo">
+            </table>
+
+            <div class="d-block mx-sm-3 mb-2">
 
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
                         <input class="form-control" id="userID" placeholder="USER ID">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2" id="usbutt">Search!</button>
+                    <button type="submit" class="btn btn-primary mb-2" onclick="usersearch()">Search!</button>
                 </form>
 
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
-                        <input class="form-control" id="lockerID" placeholder="LOCKER ID">
+                        <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
                     </div>
                     <button type="submit" class="btn btn-primary mb-2" onclick="locksearch()"> Search!</button>
                 </form>
 
-
-                <h3 id="id"></h3>
-                <table class="table table-bordered mx-sm-3 mb-2 " id="loginfo">
-                </table>
             </div>
+
+
         </div>
+    </div>
     </div>
 
     <div class="jumbotron text-center" style="margin-bottom:0px;">

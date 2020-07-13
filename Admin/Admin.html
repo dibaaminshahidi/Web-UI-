@@ -18,7 +18,8 @@
       url: 'http://5.160.146.108:8080/locker/info',
       dataType: 'json',
       headers: {
-        'token': 'adminToken  '   },
+        'token': 'adminToken  '
+      },
       success: function (data) {
         var table = "<th>ID</th><th> Status </th><th> Owner </th>";
         console.log(data)
@@ -27,56 +28,30 @@
         for (var i = 0; i < data.lockersInfo.length; i++) {
           console.log(data.lockersInfo[i].id)
           table += "<tr><td>" +
-            data.lockersInfo[i].id 
-            if(data.lockersInfo[i].status == "CLOSE"){
+            data.lockersInfo[i].id
+          if (data.lockersInfo[i].status == "CLOSE") {
             table += "</td><td class=table-success>" +
-            data.lockersInfo[i].status;
-            }
-            else{
-              table += "</td><td class=table-danger >" +
-            data.lockersInfo[i].status;
-            }
-            if (data.lockersInfo[i].ownerInfo!= null){
-            table +=  "</td><td>" +
-            data.lockersInfo[i].ownerInfo.username;
-            }            
-            else
-            table +=  "</td ><td class=table-secondary > NOT RESERVED"
+              data.lockersInfo[i].status;
+          }
+          else {
+            table += "</td><td class=table-danger >" +
+              data.lockersInfo[i].status;
+          }
+          if (data.lockersInfo[i].ownerInfo != null) {
+            table += "</td><td>" +
+              data.lockersInfo[i].ownerInfo.username;
+          }
+          else
+            table += "</td ><td class=table-secondary > NOT RESERVED"
         }
         document.getElementById("overall").innerHTML = table;
-      },  
+      },
       error: function (jqXHR, textStatus, errorThrown) {
         alert('Error: ' + textStatus + ' - ' + errorThrown);
       }
     });
   </script>
 
-  <!-- <script type="text/javascript" language="javascript">
-    $(document).ready(function () {
-        $("#usbutt").click(function (event) {
-            $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
-                var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
-                console.log(user)
-                var info = user.userHistoryInfos
-                console.log(info)
-                for (i = 0; i < info.length; i++) {
-
-                    console.log(info[i].action)
-                    table += "<tr><td>" +
-                        info[i].userLockerInfo.lockerId +
-                        "</td><td>" +
-                        info[i].action +
-                        "</td><td>" +
-                        info[i].time +
-                        "</td></tr>";
-                }
-
-                document.getElementById("loginfo").innerHTML = table;
-
-            });
-        });
-    }); 
-</script> -->
 
 </head>
 
@@ -105,7 +80,8 @@
         </a>
         <div class="dropdown-menu ">
           <a class=" dropdown-item active" href="#">Dashboard</a>
-          <a class="dropdown-item" href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/LogAdmin.html">Logs</a>
+          <a class="dropdown-item"
+            href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/LogAdmin.html">Logs</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Sign Out</a>
         </div>
@@ -116,7 +92,9 @@
   <div class="container" style="margin-bottom:30px;">
     <div class="row" style="margin-top:30px;">
       <table class="table table-bordered " id="overall">
-     
+
+
+
       </table>
     </div>
   </div>
