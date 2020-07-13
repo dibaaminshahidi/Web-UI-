@@ -157,13 +157,8 @@
 
     <div class="container" style="margin-bottom:30px;">
         <div class="row" style="margin-top:30px;">
-
-
             <h3 id="id"></h3>
-
-
-            <table class="table table-bordered mx-sm-3 mb-2 " id="loginfo">
-            </table>
+            <table class="table table-bordered  " id="loginfo"></table>
 
             <div class="d-block mx-sm-3 mb-2">
 
@@ -171,16 +166,16 @@
                     <div class="form-group mx-sm-3 mb-2">
                         <input class="form-control" id="userID" placeholder="USER ID">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2" onclick="usersearch()">Search!</button>
+                    <button type="submit" class="btn btn-primary mb-2" onclick="usersearch();return false;">Search!</button>
+
                 </form>
 
                 <form class="form-inline">
                     <div class="form-group mx-sm-3 mb-2">
                         <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2" onclick="locksearch()"> Search!</button>
+                    <button type="submit" class="btn btn-primary mb-2" onclick="locksearch();return false;">Search!</button>
                 </form>
-
             </div>
 
 
