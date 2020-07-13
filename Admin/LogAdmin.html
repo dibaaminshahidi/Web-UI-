@@ -57,11 +57,13 @@ $.ajax({
 });
     </script> -->
 
-    </script>
-    <script type="text/javascript" language="javascript">
+    <!-- <script type="text/javascript" language="javascript">
         $(document).ready(function () {
+            console.log('hi')
             $("#lockbutt").click(function (event) {
                 $.getJSON('http://5.160.146.108:8080/locker/0/info', function (locker) {
+                    console.log(locker)
+
                     var table = "<tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr>";
                     console.log(locker)
                     var info = locker.locketHistoryInfos
@@ -84,41 +86,97 @@ $.ajax({
                     document.getElementById("loginfo").innerHTML = table;
 
                 });
+           
+           
+            });
+        }); 
+    </script> -->
+
+
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $("#usbutt").click(function (event) {
+                $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
+                    var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
+                    console.log(user)
+                    var info = user.userHistoryInfos
+                    console.log(info)
+                    for (i = 0; i < info.length; i++) {
+
+                        console.log(info[i].action)
+                        table += "<tr><td>" +
+                            info[i].userLockerInfo.lockerId +
+                            "</td><td>" +
+                            info[i].action +
+                            "</td><td>" +
+                            info[i].time +
+                            "</td></tr>";
+                    }
+
+                    document.getElementById("id").innerHTML = "User Name :" + user.username;
+                    document.getElementById("loginfo").innerHTML = table;
+
+                });
             });
         }); 
     </script>
 
-<script type="text/javascript" language="javascript">
-    $(document).ready(function () {
-        $("#usbutt").click(function (event) {
-            $.getJSON('http://5.160.146.108:8080/user/0/info', function (user) {
-                var table = "<tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr>";
-                console.log(user)
-                var info = user.userHistoryInfos
-                console.log(info)
-                for (i = 0; i < info.length; i++) {
 
-                    console.log(info[i].action)
-                    table += "<tr><td>" +
-                        info[i].userLockerInfo.lockerId +
-                        "</td><td>" +
-                        info[i].action +
-                        "</td><td>" +
-                        info[i].time +
-                        "</td></tr>";
+    <script type="text/javascript">
+        function locksearch() {
+            $.ajax({
+                url: 'http://5.160.146.108:8080/locker/8/info',
+                dataType: 'json',
+                headers: {
+                    'token': 'adminToken  '
+                },
+                success: function (locker) {
+                    console.log(locker)
+                    console.log(locker)
+
+                    console.log(locker)
+                    var info = locker.locketHistoryInfos
+                    if (info.length == 0) {
+                        var nolog = " Have No Log"
+                    }
+                    else {
+                        var nolog = ""
+
+
+                        var table = "<tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr>";
+                        console.log(info)
+                        for (i = 0; i < info.length; i++) {
+
+                            console.log(info[i].action)
+                            table += "<tr><td>" +
+                                info[i].action +
+                                "</td><td>" +
+                                info[i].userInfo.userId +
+                                "</td><td>" +
+                                info[i].userInfo.username +
+                                "</td><td>" +
+                                info[i].time +
+                                "</td></tr>";
+                        }
+                        document.getElementById("loginfo").innerHTML = table;
+
+                    }
+                    document.getElementById("id").innerHTML = "Locker ID :" + locker.lockerId + nolog;
+
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error: ' + textStatus + ' - ' + errorThrown);
                 }
-
-                document.getElementById("id").innerHTML = "User Name :" + user.username;
-                document.getElementById("loginfo").innerHTML = table;
-
             });
-        });
-    }); 
-</script>
+        }
+    </script>
 
 </head>
 
 <body>
+    <!-- <button type="submit" class="btn btn-primary mb-2" onclick="locksearch()"> Search!</button> -->
+
     <div class="jumbotron text-center" style="margin-bottom:0">
         <h1>FUM Smart Locker </h1>
         <h3>Admin Panel </h3>
@@ -141,9 +199,9 @@ $.ajax({
                     Menu
                 </a>
                 <div class="dropdown-menu ">
-                    <a class=" dropdown-item active" href="#">Dashboard</a>
-                    <a class="dropdown-item" href="#">Users</a>
-                    <a class="dropdown-item" href="#">Lockers </a>
+                    <a class=" dropdown-item "
+                        href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/Admin.html">Dashboard</a>
+                    <a class="dropdown-item active" href="#">Logs </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Sign Out</a>
                 </div>
@@ -166,12 +224,12 @@ $.ajax({
                     <div class="form-group mx-sm-3 mb-2">
                         <input class="form-control" id="lockerID" placeholder="LOCKER ID">
                     </div>
-                    <button type="submit" class="btn btn-primary mb-2" id="lockbutt"> Search!</button>
+                    <button type="submit" class="btn btn-primary mb-2" onclick="locksearch()"> Search!</button>
                 </form>
 
 
                 <h3 id="id"></h3>
-                <table class="table table-bordered " id="loginfo">
+                <table class="table table-bordered mx-sm-3 mb-2 " id="loginfo">
                 </table>
             </div>
         </div>
