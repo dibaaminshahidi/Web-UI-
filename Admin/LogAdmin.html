@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <title>Admin Panel</title>
+    <title>Log Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -61,9 +60,6 @@
         }
     </script>
 
-
-
-
     <script type="text/javascript">
         function locksearch() {
             var geturl = 'http://5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
@@ -116,11 +112,39 @@
                 }
             });
         }
+
+    </script>
+
+    <script type="text/javascript">
+        function by() {
+            console.log('hi')
+            id = document.getElementById("openid").value
+            var URL = 'http://5.160.146.108:8080/locker/'+id+'/open';
+            //var URL = 'http://5.160.146.108:8080/locker/7/open';
+            console.log(URL)
+
+            $.ajax({
+                url: URL,
+                type: 'PUT',
+                headers: {
+                    'token': 'adminToken  '
+                },
+                success: function (result) {
+                    console.log(result)
+                    console.log('ok')
+                    document.getElementById("id").innerHTML = "Locker ID : " + id + "is Open Now.";
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('no')
+                }
+            });
+        }
     </script>
 
 </head>
 
 <body>
+
     <!-- <button type="submit" class="btn btn-primary mb-2" onclick="locksearch()"> Search!</button> -->
 
     <div class="jumbotron text-center" style="margin-bottom:0">
@@ -159,25 +183,44 @@
         <div class="row" style="margin-top:30px;">
             <h3 id="id"></h3>
             <table class="table table-bordered  " id="loginfo"></table>
+            <div class="col-sm-6 " style="max-height:400px;margin-top:30px;margin-bottom:30px;">
 
-            <div class="d-block mx-sm-3 mb-2">
+                <div class="d-block mx-sm-3 mb-2">
 
-                <form class="form-inline">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input class="form-control" id="userID" placeholder="USER ID">
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2" onclick="usersearch();return false;">Search!</button>
+                    <form class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input class="form-control" id="userID" placeholder="USER ID">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2"
+                            onclick="usersearch();return false;">Search!</button>
 
-                </form>
+                    </form>
 
-                <form class="form-inline">
-                    <div class="form-group mx-sm-3 mb-2">
-                        <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2" onclick="locksearch();return false;">Search!</button>
-                </form>
+                    <form class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2"
+                            onclick="locksearch();return false;">Search!</button>
+                    </form>
+                    
+                </div>
+
             </div>
 
+            <div class="col-sm-6 " style="max-height:400px;margin-top:30px;margin-bottom:30px;">
+
+                <div class="d-block mx-sm-3 mb-2">
+
+                    <form class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input class="form-control" id="openid" placeholder="LOCKER ID">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" onclick="by();return false">Open!</button>
+                    </form>
+                </div>
+
+            </div>
 
         </div>
     </div>
