@@ -55,12 +55,15 @@ data: JSON.stringify( {
     "username": document.getElementById("luser").value,
     "password": document.getElementById("lpass").value } ),
 success: function( result ){
-      console.log(result)
-      var admin = false
-      if(admin){}
+      if(document.getElementById("luser").value == "admin" && result.status == "OK"){
+
+        window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/Admin.html";
+      }
       else{
+
       window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
-    }}
+    }
+}
     ,
 error: function( jqXhr, textStatus, errorThrown ){
     console.log( errorThrown );
