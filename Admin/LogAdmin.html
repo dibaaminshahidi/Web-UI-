@@ -2,7 +2,7 @@
 
 <head>
 
-    <title>Log Panel</title>
+    <title>Admin Panel</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -180,44 +180,61 @@
     </nav>
 
     <div class="container" style="margin-bottom:30px;">
-        <div class="row" style="margin-top:30px;justify-content: center;">
-            <h3 id="id"></h3>
-            <table class="table table-bordered  " id="loginfo"></table>
-            <div class="col-sm-5 jumbotron " style="max-height:400px;margin-top:30px;margin-bottom:30px;">
+        <h3 style="margin:10px 0 0 0;" id="id"></h3>
 
+        <div class="row " style="margin-top:30px;">
+            <table class="table table-bordered  " id="loginfo"></table>
+            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
+                <h5 style=" margin: 10% 0 5% 5px;"> User Log </h5>
                 <div class="card text-left">
-                    <article class="card-body d-block">
-                    <form class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
+
+                    <article class="card-body ">
+                    <form class="form d-block">
+                        <div class="form-group ">
                             <input class="form-control" id="userID" placeholder="USER ID">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2"
+                        <button type="submit" class="btn btn-primary btn-block"
                             onclick="usersearch();return false;">Search!</button>
 
                     </form>
-
-                    <form class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2"
-                            onclick="locksearch();return false;">Search!</button>
-                    </form>
                     </article>
                 </div>
-                </div>
 
+                </div>
                 <div class="col-sm-1 " ></div>
 
-            <div class="col-sm-5 jumbotron" style="max-height:400px;margin-top:30px;margin-bottom:30px;">
-                <div class="card text-left">
-                    <article class="card-body d-block">
+                <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
+                    <h5 style=" margin: 10% 0 5% 5px;"> Locker History </h5>
+                    <div class="card text-left">
 
-                    <form class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
+                        <article class="card-body  ">
+    
+                        <form class="form d-block">
+                            <div class="form-group">
+                                <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block"
+                                onclick="locksearch();return false;">Search!</button>
+                        </form>
+                        </article>
+                    </div>
+                    </div>
+                <div class="col-sm-1 " ></div>
+
+            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
+                <h5 style=" margin: 10% 0 5% 5px;"> Open Locker </h5>
+
+                <div class="card text-left">
+
+                    <article class="card-body ">
+
+                    <form class="form d-block">
+                        <div class="form-group">
                             <input class="form-control" id="openid" placeholder="LOCKER ID">
+
                         </div>
-                        <button type="submit" class="btn btn-primary mb-2" onclick="by();return false">Open!</button>
+                        <button type="submit" class="btn btn-danger btn-block" onclick="by();return false">Open!</button>
+
                     </form>
                     </article>
                 </div>
