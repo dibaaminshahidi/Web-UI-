@@ -13,18 +13,18 @@
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
     <script>
-        function signout(){
-          sessionStorage.removeItem('token');
+        function signout() {
+            sessionStorage.removeItem('token');
         }
-      </script>
-    <script>      
-    var token = sessionStorage.getItem("token");
+    </script>
+    <script>
+        var token = sessionStorage.getItem("token");
         console.log(token);
     </script>
     <script type="text/javascript">
         function usersearch() {
-           // var geturl = 'http://5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
-            var geturl = '5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
+            var geturl = 'http://5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
+            //var geturl = '5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
 
             console.log(geturl)
             $.ajax({
@@ -72,8 +72,8 @@
 
     <script type="text/javascript">
         function locksearch() {
-            //var geturl = 'http://5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
-            var geturl = '5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
+            var geturl = 'http://5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
+            //var geturl = '5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
 
             $.ajax({
                 url: geturl,
@@ -130,8 +130,8 @@
         function by() {
             console.log('hi')
             id = document.getElementById("openid").value
-           // var URL = 'http://5.160.146.108:8080/locker/' + id + '/open';
-            var URL = '5.160.146.108:8080/locker/' + id + '/open';
+            var URL = 'http://5.160.146.108:8080/locker/' + id + '/open';
+            // var URL = '5.160.146.108:8080/locker/' + id + '/open';
 
             console.log(URL)
 
@@ -183,11 +183,10 @@
                     Menu
                 </a>
                 <div class="dropdown-menu ">
-                    <a class=" dropdown-item "
-                        href="./Admin.html">Dashboard</a>
+                    <a class=" dropdown-item " href="./Admin.html">Dashboard</a>
                     <a class="dropdown-item active" href="#">Logs </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" onclick="signout();"href="./../Login/login.html">Sign Out</a>
+                    <a class="dropdown-item" onclick="signout();" href="./../Login/login.html">Sign Out</a>
                 </div>
             </li>
         </ul>

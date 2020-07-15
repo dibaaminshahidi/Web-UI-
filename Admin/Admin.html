@@ -12,19 +12,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
-  <script>      
+  <script>
     var token = sessionStorage.getItem("token");
-        console.log(token);
-    </script>
+    console.log(token);
+  </script>
   <script type="text/javascript">
-  //var myURL = 'http://5.160.146.108:8080/locker/info'
-  var myURL = '5.160.146.108:8080/locker/info'
+    var myURL = 'http://5.160.146.108:8080/locker/info'
+    //var myURL = '5.160.146.108:8080/locker/info'
 
     $.ajax({
       url: myURL,
       dataType: 'json',
       headers: {
-        'token':  token
+        'token': token
       },
       success: function (data) {
         var table = "<th>ID</th><th> Status </th><th> Owner </th>";
@@ -55,63 +55,65 @@
     });
   </script>
 
-<script type="text/javascript">
-      var token = sessionStorage.getItem("token");
-      //var myURL = 'http://5.160.146.108:8080/warning'
-      var myURL = '5.160.146.108:8080/warning'
+  <script type="text/javascript">
+    var token = sessionStorage.getItem("token");
+    var myURL = 'http://5.160.146.108:8080/warning'
+    //var myURL = '5.160.146.108:8080/warning'
 
-  $.ajax({
-    url: myURL,
-    dataType: 'json',
-    headers: {
-      'token': token
-    },
-    success: function (data) {
+    $.ajax({
+      url: myURL,
+      dataType: 'json',
+      headers: {
+        'token': token
+      },
+      success: function (data) {
 
-if(data.warnings.length == 0){
-  document.getElementById("warningStatus").innerHTML ="NO Warning"
-}
-var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
-
-      for (var i = 0; i < data.warnings.length; i++) {
-
-        if (data.warnings[i].userInfo != null) {
-          table += "</tr><td>" +
-            data.warnings[i].userInfo.username;
+        if (data.warnings.length == 0) {
+          document.getElementById("warningStatus").innerHTML = "NO Warning"
         }
-        else{
-          table += "</tr><td class=table-secondary > NOT RESERVED"
-      }
-        if (data.warnings[i].type == "UNEXPECTED_OPENING") {
-          table += "</td><td class=table-danger>" +
-            data.warnings[i].type;
+        var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
+
+        for (var i = 0; i < data.warnings.length; i++) {
+
+          if (data.warnings[i].userInfo != null) {
+            table += "</tr><td>" +
+              data.warnings[i].userInfo.username;
+          }
+          else {
+            table += "</tr><td class=table-secondary > NOT RESERVED"
+          }
+          if (data.warnings[i].type == "UNEXPECTED_OPENING") {
+            table += "</td><td class=table-danger>" +
+              data.warnings[i].type;
+          }
+          else {
+            if (data.warnings[i].type == "LOCKER_UNUSED") {
+              table += "</td><td class=table-dark>" +
+                data.warnings[i].type;
             }
-        else{if(data.warnings[i].type == "LOCKER_UNUSED"){
-          table += "</td><td class=table-dark>" +
-            data.warnings[i].type;
-        }
-        else {
-          table += "</tr><td class=table-warning>" +
-            data.warnings[i].type;
-        }}
+            else {
+              table += "</tr><td class=table-warning>" +
+                data.warnings[i].type;
+            }
+          }
 
-      table += "</td ><td>" +
+          table += "</td ><td>" +
             data.warnings[i].lockerInfo.id +
             "</td ><td>" +
             data.warnings[0].time
+        }
+        document.getElementById("warning").innerHTML = table;
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('Error: ' + textStatus + ' - ' + errorThrown);
       }
-     document.getElementById("warning").innerHTML = table;
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      alert('Error: ' + textStatus + ' - ' + errorThrown);
+    });
+  </script>
+  <script>
+    function signout() {
+      sessionStorage.removeItem('token');
     }
-  });
-</script>
-<script>
-  function signout(){
-    sessionStorage.removeItem('token');
-  }
-</script>
+  </script>
 </head>
 
 <body>
@@ -121,7 +123,7 @@ var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </
     <h3>Admin Panel </h3>
 
   </div>
- 
+
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified ">
     <ul class="nav nav-pills ">
 
@@ -139,10 +141,9 @@ var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </
         </a>
         <div class="dropdown-menu ">
           <a class=" dropdown-item active" href="#">Dashboard</a>
-          <a class="dropdown-item"
-            href="./LogAdmin.html">Logs</a>
+          <a class="dropdown-item" href="./LogAdmin.html">Logs</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="signout();"href="./../Login/login.html">Sign Out</a>
+          <a class="dropdown-item" onclick="signout();" href="./../Login/login.html">Sign Out</a>
         </div>
       </li>
     </ul>
@@ -151,15 +152,15 @@ var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </
   <div class="container" style="margin-bottom:30px;">
     <div class="row" style="margin-top:30px;justify-content: center;">
       <div class="col-sm-5">
-        <h3 >Overall Status</h3>
-        <table class="table table-bordered " style = "margin: 0;"  id="overall"></table>
+        <h3>Overall Status</h3>
+        <table class="table table-bordered " style="margin: 0;" id="overall"></table>
       </div>
-    <div class="col-sm-7">
-      <h3>Warnings</h3>
-      <h5 id = "warningStatus"> </h5>
+      <div class="col-sm-7">
+        <h3>Warnings</h3>
+        <h5 id="warningStatus"> </h5>
 
-      <table class="table table-bordered " id="warning"></table>
-      </div>  
+        <table class="table table-bordered " id="warning"></table>
+      </div>
     </div>
 
 

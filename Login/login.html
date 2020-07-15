@@ -14,8 +14,8 @@
     <script type="text/javascript">
         function sign() {
             console.log('hi')
-            //var URL = 'http://5.160.146.108:8080/user/sign_up';
-            var URL = '5.160.146.108:8080/user/sign_up';
+            var URL = 'http://5.160.146.108:8080/user/sign_up';
+            //var URL = '5.160.146.108:8080/user/sign_up';
 
             console.log(URL)
             $.ajax({
@@ -35,7 +35,7 @@
                     else {
                         token = result.token;
                         sessionStorage.setItem('token', result.token);
-                        window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
+                        window.location.href = "./../User/Dashboard1.html";
                     }
                 }
                 ,
@@ -48,43 +48,43 @@
         }
     </script>
     <script type="text/javascript">
-            function login() {
-                var token
-                console.log('hi')
-                //var URL = 'http://5.160.146.108:8080/user/login';
-                var URL = '5.160.146.108:8080/user/login';
+        function login() {
+            var token
+            console.log('hi')
+            var URL = 'http://5.160.146.108:8080/user/login';
+            //var URL = '5.160.146.108:8080/user/login';
 
-                console.log(URL)
-                $.ajax({
-                    url: URL,
-                    dataType: 'json',
-                    type: 'post',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        "username": document.getElementById("luser").value,
-                        "password": document.getElementById("lpass").value
-                    }),
-                    success: function (result) {
-                        if (document.getElementById("luser").value == "admin" && result.status == "OK") {
-                            token = result.token;
-                            sessionStorage.setItem('token', result.token);
-                            console.log(token)
+            console.log(URL)
+            $.ajax({
+                url: URL,
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "username": document.getElementById("luser").value,
+                    "password": document.getElementById("lpass").value
+                }),
+                success: function (result) {
+                    if (document.getElementById("luser").value == "admin" && result.status == "OK") {
+                        token = result.token;
+                        sessionStorage.setItem('token', result.token);
+                        console.log(token)
 
-                            window.location.href = "./../Admin/Admin.html";
-                        }
-                        else {
-
-                            window.location.href = "./../User/Dashboard1.html";
-                        }
+                        window.location.href = "./../Admin/Admin.html";
                     }
-                    ,
-                    error: function (jqXhr, textStatus, errorThrown) {
-                        console.log(errorThrown);
-                        console.log('no')
+                    else {
 
+                        window.location.href = "./../User/Dashboard1.html";
                     }
-                });
-            }
+                }
+                ,
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log('no')
+
+                }
+            });
+        }
     </script>
 
 
