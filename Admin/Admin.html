@@ -22,11 +22,8 @@
       },
       success: function (data) {
         var table = "<th>ID</th><th> Status </th><th> Owner </th>";
-        console.log(data)
-        console.log(data.lockersInfo[0].id)
 
         for (var i = 0; i < data.lockersInfo.length; i++) {
-          console.log(data.lockersInfo[i].id)
           table += "<tr><td>" +
             data.lockersInfo[i].id
           if (data.lockersInfo[i].status == "CLOSE") {
@@ -53,37 +50,52 @@
   </script>
 
 <script type="text/javascript">
+      var token = sessionStorage.getItem("token");
   $.ajax({
-    url: 'http://5.160.146.108:8080/locker/info',
+    url: 'http://5.160.146.108:8080/warning',
     dataType: 'json',
     headers: {
-      'token': 'adminToken  '
+      'token': token
     },
     success: function (data) {
-      var table = "<th>Username</th><th> Massage </th><th> Time </th>";
-      console.log(data)
-      console.log(data.lockersInfo[0].id)
+      var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
 
-      for (var i = 0; i < data.lockersInfo.length; i++) {
-        console.log(data.lockersInfo[i].id)
-        table += "<tr><td>" +
-          data.lockersInfo[i].id
-        if (data.lockersInfo[i].status == "CLOSE") {
-          table += "</td><td class=table-success>" +
-            data.lockersInfo[i].status;
+      console.log(data)
+      console.log(data.warnings[0].type)
+      console.log(data.warnings[0].time)
+      console.log(data.warnings[0].lockerInfo.id)
+      console.log(data.warnings[0].userInfo.username)
+if(data.warnings.length == 0){
+  document.getElementById("warningStatus").innerHTML ="NO Warning"
+}
+      for (var i = 0; i < data.warnings.length; i++) {
+
+        if (data.warnings[i].userInfo != null) {
+          table += "</tr><td>" +
+            data.warnings[i].userInfo.username;
+        }
+        else{
+          table += "</tr><td class=table-secondary > NOT RESERVED"
+      }
+        if (data.warnings[i].type == "UNEXPECTED_OPENING") {
+          table += "</td><td class=table-danger>" +
+            data.warnings[i].type;
+            }
+        else{if(data.warnings[i].type == "LOCKER_UNUSED"){
+          table += "</td><td class=table-dark>" +
+            data.warnings[i].type;
         }
         else {
-          table += "</td><td class=table-danger >" +
-            data.lockersInfo[i].status;
-        }
-        if (data.lockersInfo[i].ownerInfo != null) {
-          table += "</td><td>" +
-            data.lockersInfo[i].ownerInfo.username;
-        }
-        else
-          table += "</td ><td class=table-secondary > NOT RESERVED"
+          table += "</tr><td class=table-warning>" +
+            data.warnings[i].type;
+        }}
+
+      table += "</td ><td>" +
+            data.warnings[i].lockerInfo.id +
+            "</td ><td>" +
+            data.warnings[0].time
       }
-      document.getElementById("warning").innerHTML = table;
+     document.getElementById("warning").innerHTML = table;
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alert('Error: ' + textStatus + ' - ' + errorThrown);
@@ -100,7 +112,7 @@
     <h3>Admin Panel </h3>
 
   </div>
-
+ 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-justified ">
     <ul class="nav nav-pills ">
 
@@ -130,12 +142,12 @@
   <div class="container" style="margin-bottom:30px;">
     <div class="row" style="margin-top:30px;justify-content: center;">
       <div class="col-sm-5">
-        <h3>Overall Status</h3>
-        <table class="table table-bordered "  id="overall"></table>
+        <h3 >Overall Status</h3>
+        <table class="table table-bordered " style = "margin: 0;"  id="overall"></table>
       </div>
-    <div class="col-sm-1"></div>
-    <div class="col-sm-5">
-      <h3>Warning</h3>
+    <div class="col-sm-7">
+      <h3>Warnings</h3>
+      <h5 id = "warningStatus"> </h5>
 
       <table class="table table-bordered " id="warning"></table>
       </div>  
