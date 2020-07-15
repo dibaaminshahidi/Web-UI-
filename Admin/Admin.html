@@ -17,8 +17,11 @@
         console.log(token);
     </script>
   <script type="text/javascript">
+  //var myURL = 'http://5.160.146.108:8080/locker/info'
+  var myURL = '5.160.146.108:8080/locker/info'
+
     $.ajax({
-      url: 'http://5.160.146.108:8080/locker/info',
+      url: myURL,
       dataType: 'json',
       headers: {
         'token':  token
@@ -54,8 +57,11 @@
 
 <script type="text/javascript">
       var token = sessionStorage.getItem("token");
+      //var myURL = 'http://5.160.146.108:8080/warning'
+      var myURL = '5.160.146.108:8080/warning'
+
   $.ajax({
-    url: 'http://5.160.146.108:8080/warning',
+    url: myURL,
     dataType: 'json',
     headers: {
       'token': token
@@ -134,9 +140,9 @@ var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </
         <div class="dropdown-menu ">
           <a class=" dropdown-item active" href="#">Dashboard</a>
           <a class="dropdown-item"
-            href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/LogAdmin.html">Logs</a>
+            href="./LogAdmin.html">Logs</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="signout();"href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Login/login.html">Sign Out</a>
+          <a class="dropdown-item" onclick="signout();"href="./../Login/login.html">Sign Out</a>
         </div>
       </li>
     </ul>
