@@ -18,7 +18,7 @@
       url: 'http://5.160.146.108:8080/locker/info',
       dataType: 'json',
       headers: {
-        'token': 'adminToken  '
+        'token':  token
       },
       success: function (data) {
         var table = "<th>ID</th><th> Status </th><th> Owner </th>";
@@ -58,16 +58,12 @@
       'token': token
     },
     success: function (data) {
-      var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
 
-      console.log(data)
-      console.log(data.warnings[0].type)
-      console.log(data.warnings[0].time)
-      console.log(data.warnings[0].lockerInfo.id)
-      console.log(data.warnings[0].userInfo.username)
 if(data.warnings.length == 0){
   document.getElementById("warningStatus").innerHTML ="NO Warning"
 }
+var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
+
       for (var i = 0; i < data.warnings.length; i++) {
 
         if (data.warnings[i].userInfo != null) {
@@ -102,7 +98,11 @@ if(data.warnings.length == 0){
     }
   });
 </script>
-
+<script>
+  function signout(){
+    sessionStorage.removeItem('token');
+  }
+</script>
 </head>
 
 <body>
@@ -133,7 +133,7 @@ if(data.warnings.length == 0){
           <a class="dropdown-item"
             href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/LogAdmin.html">Logs</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Sign Out</a>
+          <a class="dropdown-item" onclick="signout();"href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Login/login.html">Sign Out</a>
         </div>
       </li>
     </ul>

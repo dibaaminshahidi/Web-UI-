@@ -12,7 +12,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
-    <script>      var token = sessionStorage.getItem("token");
+    <script>
+        function signout(){
+          sessionStorage.removeItem('token');
+        }
+      </script>
+    <script>      
+    var token = sessionStorage.getItem("token");
         console.log(token);
     </script>
     <script type="text/javascript">
@@ -177,7 +183,7 @@
                         href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/Admin.html">Dashboard</a>
                     <a class="dropdown-item active" href="#">Logs </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Sign Out</a>
+                    <a class="dropdown-item" onclick="signout();"href="/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Login/login.html">Sign Out</a>
                 </div>
             </li>
         </ul>
