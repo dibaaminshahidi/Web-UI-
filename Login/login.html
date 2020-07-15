@@ -17,62 +17,69 @@
             var URL = 'http://5.160.146.108:8080/user/sign_up';
             console.log(URL)
             $.ajax({
-    url: URL,
-    dataType: 'json',
-    type: 'post',
-    contentType: 'application/json',
-    data: JSON.stringify( { "nikname":document.getElementById("nikname").value ,
-        "username": document.getElementById("suser").value,
-        "password": document.getElementById("spass").value } ),
-    success: function( result ){
-          console.log(result)
-          var admin = false
-          if(admin){}
-          else{
-          window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
-        }}
-        ,
-    error: function( jqXhr, textStatus, errorThrown ){
-        console.log( errorThrown );
-        console.log('no')
+                url: URL,
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "nikname": document.getElementById("nikname").value,
+                    "username": document.getElementById("suser").value,
+                    "password": document.getElementById("spass").value
+                }),
+                success: function (result) {
+                    console.log(result)
+                    var admin = false
+                    if (admin) { }
+                    else {
+                        window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
+                    }
+                }
+                ,
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    console.log('no')
 
-    }
-});
+                }
+            });
         }
     </script>
+    <script type="text/javascript">
+            function login() {
+                var token
+                console.log('hi')
+                var URL = 'http://5.160.146.108:8080/user/login';
+                console.log(URL)
+                $.ajax({
+                    url: URL,
+                    dataType: 'json',
+                    type: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "username": document.getElementById("luser").value,
+                        "password": document.getElementById("lpass").value
+                    }),
+                    success: function (result) {
+                        if (document.getElementById("luser").value == "admin" && result.status == "OK") {
+                            token = result.token;
+                            sessionStorage.setItem('token', result.token);
+                            console.log(result.token)
+                            console.log(token)
+                            window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/Admin.html";
+                        }
+                        else {
 
-<script type="text/javascript">
-    function login() {
-        console.log('hi')
-        var URL = 'http://5.160.146.108:8080/user/login';
-        console.log(URL)
-        $.ajax({
-url: URL,
-dataType: 'json',
-type: 'post',
-contentType: 'application/json',
-data: JSON.stringify( { 
-    "username": document.getElementById("luser").value,
-    "password": document.getElementById("lpass").value } ),
-success: function( result ){
-      if(document.getElementById("luser").value == "admin" && result.status == "OK"){
+                            window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
+                        }
+                    }
+                    ,
+                    error: function (jqXhr, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        console.log('no')
 
-        window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/Admin/Admin.html";
-      }
-      else{
-
-      window.location.href = "/Users/dibaaminshahidi/Desktop/Work/Spring99/IOT/Project/Web-UI-/User/Dashboard1.html";
-    }
-}
-    ,
-error: function( jqXhr, textStatus, errorThrown ){
-    console.log( errorThrown );
-    console.log('no')
-
-}
-});
-    }
-</script>
+                    }
+                });
+            }
+    </script>
 
 
 </head>
@@ -129,7 +136,8 @@ error: function( jqXhr, textStatus, errorThrown ){
                             </div> <!-- form-group// -->
 
                             <div class="form-group" style="margin:0 0 15% 0; ">
-                                <button type="submit" class="btn btn-primary btn-block" onclick="login(); return false;"> Login </button>
+                                <button type="submit" class="btn btn-primary btn-block"
+                                    onclick="login(); return false;"> Login </button>
                             </div> <!-- form-group// -->
                         </form>
                     </article>
@@ -159,7 +167,8 @@ error: function( jqXhr, textStatus, errorThrown ){
                                 <input class="form-control" id="spass" placeholder="******" type="password">
                             </div> <!-- form-group// -->
                             <div class="form-group" style="margin:0 0 15% 0; ">
-                                <button type="submit" class="btn btn-primary btn-block" onclick="sign(); return false;"> Sign Up </button>
+                                <button type="submit" class="btn btn-primary btn-block" onclick="sign(); return false;">
+                                    Sign Up </button>
                             </div> <!-- form-group// -->
                         </form>
                     </article>
