@@ -71,17 +71,11 @@
         if (data.warnings.length == 0) {
           document.getElementById("warningStatus").innerHTML = "NO Warning"
         }
-        var table = "<th>Username</th><th> Massage </th><th> Locker ID </th><th> Time </th>";
+        var table = "<th> ID</th><th>Message</th><th> Email </th><th> Username </th><th> Time </th>";
 
         for (var i = 0; i < data.warnings.length; i++) {
-
-          if (data.warnings[i].userInfo != null) {
-            table += "</tr><td>" +
-              data.warnings[i].userInfo.username;
-          }
-          else {
-            table += "</tr><td class=table-secondary > NOT RESERVED"
-          }
+          table += "</tr ><td>" +
+            data.warnings[i].lockerInfo.id
           if (data.warnings[i].type == "UNEXPECTED_OPENING") {
             table += "</td><td class=table-danger>" +
               data.warnings[i].type;
@@ -96,9 +90,18 @@
                 data.warnings[i].type;
             }
           }
+          if (data.warnings[i].userInfo != null) {
+            table += "</td><td>" +
+              data.warnings[i].userInfo.username;
+          }
+          else {
+            table += "</td><td class=table-secondary > NOT RESERVED"
+          }
+          table += "</td><td>" +
+            data.warnings[i].userInfo.email;
 
-          table += "</td ><td>" +
-            data.warnings[i].lockerInfo.id +
+
+          table +=
             "</td ><td>" +
             data.warnings[0].time
         }
@@ -159,7 +162,7 @@
         <h3>Warnings</h3>
         <h5 id="warningStatus"> </h5>
 
-        <table class="table table-bordered " id="warning"></table>
+        <table class="table table-bordered  table-responsive  " id="warning"></table>
       </div>
     </div>
 

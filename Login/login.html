@@ -24,7 +24,8 @@
                 type: 'post',
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    "nikname": document.getElementById("nikname").value,
+                    "nickname": document.getElementById("nikname").value,
+                    "email":document.getElementById("email").value,
                     "username": document.getElementById("suser").value,
                     "password": document.getElementById("spass").value
                 }),
@@ -165,9 +166,16 @@
                                 <input name="" class="form-control" id="suser" placeholder="Username">
                             </div> <!-- form-group// -->
                             <div class="form-group" style="margin:0 0 7% 0; ">
-                                <label>Nikname</label>
-                                <input class="form-control" id="nikname" placeholder="Nikname">
+                                <label>Nickname</label>
+                                <input class="form-control" id="nikname" placeholder="Nickname">
+                                
                             </div> <!-- form-group// -->
+                            <div class="form-group" style="margin:0 0 7% 0; ">
+                                <label>Email</label>
+                                <input class="form-control" id="email" placeholder="Email" type ="email">
+                                
+                            </div> <!-- form-group// -->
+                            
                             <div class="form-group" style="margin:0 0 30% 0; ">
                                 <label>Choose Password</label>
                                 <input class="form-control" id="spass" placeholder="******" type="password">
