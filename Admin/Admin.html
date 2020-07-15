@@ -80,15 +80,15 @@
             table += "</td><td class=table-danger>" +
               data.warnings[i].type;
           }
-          else {
-            if (data.warnings[i].type == "LOCKER_UNUSED") {
-              table += "</td><td class=table-dark>" +
-                data.warnings[i].type;
-            }
-            else {
-              table += "</tr><td class=table-warning>" +
-                data.warnings[i].type;
-            }
+
+          if (data.warnings[i].type == "LOCKER_UNUSED") {
+            table += "</td><td class=table-dark>" +
+              data.warnings[i].type;
+          }
+          if (data.warnings[i].type == "NO_CREDIT") {
+            table += "</td><td class=table-warning>" +
+              data.warnings[i].type;
+
           }
           if (data.warnings[i].userInfo != null) {
             table += "</td><td>" +
