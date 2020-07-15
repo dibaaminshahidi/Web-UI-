@@ -12,7 +12,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
-
+    <script>      var token = sessionStorage.getItem("token");
+        console.log(token);
+    </script>
     <script type="text/javascript">
         function usersearch() {
             var geturl = 'http://5.160.146.108:8080/user/search?username=' + document.getElementById("userID").value
@@ -21,7 +23,7 @@
                 url: geturl,
                 dataType: 'json',
                 headers: {
-                    'token': 'adminToken  '
+                    'token': token
                 },
                 success: function (user) {
                     var table = "<thead><tr><<th>Locker ID</th><th>Action</th>><th> Time</th></tr></thead>";
@@ -63,12 +65,12 @@
     <script type="text/javascript">
         function locksearch() {
             var geturl = 'http://5.160.146.108:8080/locker/' + document.getElementById("lockerID").value + '/info'
-            console.log(geturl)
+
             $.ajax({
                 url: geturl,
                 dataType: 'json',
                 headers: {
-                    'token': 'adminToken  '
+                    'token': token
                 },
                 success: function (locker) {
                     console.log(locker)
@@ -119,7 +121,7 @@
         function by() {
             console.log('hi')
             id = document.getElementById("openid").value
-            var URL = 'http://5.160.146.108:8080/locker/'+id+'/open';
+            var URL = 'http://5.160.146.108:8080/locker/' + id + '/open';
             //var URL = 'http://5.160.146.108:8080/locker/7/open';
             console.log(URL)
 
@@ -127,12 +129,14 @@
                 url: URL,
                 type: 'PUT',
                 headers: {
-                    'token': 'adminToken  '
+                    'token': token
                 },
                 success: function (result) {
                     console.log(result)
                     console.log('ok')
                     document.getElementById("id").innerHTML = "Locker ID : " + id + " is Open Now.";
+                    document.getElementById("loginfo").innerHTML = ""
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log('no')
@@ -184,31 +188,31 @@
 
         <div class="row " style="margin-top:30px;">
             <table class="table table-bordered  " id="loginfo"></table>
-            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
+            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;">
                 <h5 style=" margin: 10% 0 5% 5px;"> User Log </h5>
                 <div class="card text-left">
 
                     <article class="card-body ">
-                    <form class="form d-block">
-                        <div class="form-group ">
-                            <input class="form-control" id="userID" placeholder="USER ID">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block"
-                            onclick="usersearch();return false;">Search!</button>
+                        <form class="form d-block">
+                            <div class="form-group ">
+                                <input class="form-control" id="userID" placeholder="USER ID">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block"
+                                onclick="usersearch();return false;">Search!</button>
 
-                    </form>
+                        </form>
                     </article>
                 </div>
 
-                </div>
-                <div class="col-sm-1 " ></div>
+            </div>
+            <div class="col-sm-1 "></div>
 
-                <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
-                    <h5 style=" margin: 10% 0 5% 5px;"> Locker History </h5>
-                    <div class="card text-left">
+            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;">
+                <h5 style=" margin: 10% 0 5% 5px;"> Locker History </h5>
+                <div class="card text-left">
 
-                        <article class="card-body  ">
-    
+                    <article class="card-body  ">
+
                         <form class="form d-block">
                             <div class="form-group">
                                 <input class="form-control" id="lockerID" name="lid" placeholder="LOCKER ID">
@@ -216,34 +220,35 @@
                             <button type="submit" class="btn btn-primary btn-block"
                                 onclick="locksearch();return false;">Search!</button>
                         </form>
-                        </article>
-                    </div>
-                    </div>
-                <div class="col-sm-1 " ></div>
+                    </article>
+                </div>
+            </div>
+            <div class="col-sm-1 "></div>
 
-            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;" >
+            <div class="col-sm-3 jumbotron" style="padding: 1rem 1rem 2rem 1rem;">
                 <h5 style=" margin: 10% 0 5% 5px;"> Open Locker </h5>
 
                 <div class="card text-left">
 
                     <article class="card-body ">
 
-                    <form class="form d-block">
-                        <div class="form-group">
-                            <input class="form-control" id="openid" placeholder="LOCKER ID">
+                        <form class="form d-block">
+                            <div class="form-group">
+                                <input class="form-control" id="openid" placeholder="LOCKER ID">
 
-                        </div>
-                        <button type="submit" class="btn btn-danger btn-block" onclick="by();return false">Open!</button>
+                            </div>
+                            <button type="submit" class="btn btn-danger btn-block"
+                                onclick="by();return false">Open!</button>
 
-                    </form>
+                        </form>
                     </article>
                 </div>
-                </div>
             </div>
-
-            </div>
-
         </div>
+
+    </div>
+
+    </div>
     </div>
     </div>
 
