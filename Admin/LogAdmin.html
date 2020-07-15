@@ -38,16 +38,24 @@
                     console.log(user)
                     var info = user.userHistoryInfos
                     console.log(info)
-                    if (info.length == 0) {
-                        var usernolog = " Have No Log"
+                    var usernolog = ""
+                    var email = ""
+
+                    if (user.email != null) {
+                        email = "<br>" + "Email : " + user.email
+                        console.log(user.email)
+                        console.log(email)
                         console.log(usernolog)
                     }
-                    else {
-                        var usernolog = ""
+                    if (info.length == 0) {
+                        usernolog = " Have No Log"
+                        console.log(usernolog)
+                        document.getElementById("loginfo").innerHTML = "";
+                    }
 
+                    else {
                         for (i = 0; i < info.length; i++) {
 
-                            console.log(info[i].action)
                             table += "<tbody><tr><td>" +
                                 info[i].userLockerInfo.lockerId +
                                 "</td><td>" +
@@ -60,7 +68,7 @@
 
                     }
 
-                    document.getElementById("id").innerHTML = "Username : " + user.username + "<br>" + "User ID : " + user.id + usernolog;
+                    document.getElementById("id").innerHTML = "Username : " + user.username + "<br>" + "User ID : " + user.id + email + usernolog;
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
