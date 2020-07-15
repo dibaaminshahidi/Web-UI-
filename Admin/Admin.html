@@ -12,7 +12,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
-
+  <script>      
+    var token = sessionStorage.getItem("token");
+        console.log(token);
+    </script>
   <script type="text/javascript">
     $.ajax({
       url: 'http://5.160.146.108:8080/locker/info',
