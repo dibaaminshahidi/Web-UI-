@@ -25,7 +25,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify({
                     "nickname": document.getElementById("nikname").value,
-                    "email":document.getElementById("email").value,
+                    "email": document.getElementById("email").value,
                     "username": document.getElementById("suser").value,
                     "password": document.getElementById("spass").value
                 }),
@@ -36,7 +36,7 @@
                     else {
                         token = result.token;
                         sessionStorage.setItem('token', result.token);
-                        window.location.href = "./../User/Dashboard1.html";
+                        window.location.href = "./../User/Dashboard.html";
                     }
                 }
                 ,
@@ -66,16 +66,20 @@
                     "password": document.getElementById("lpass").value
                 }),
                 success: function (result) {
-                    if (document.getElementById("luser").value == "admin" && result.status == "OK") {
+                    if (result.status = "OK") {
                         token = result.token;
-                        sessionStorage.setItem('token', result.token);
-                        console.log(token)
+                            sessionStorage.setItem('token', result.token);
+                        if (document.getElementById("luser").value == "admin") {
+                            token = result.token;
+                            sessionStorage.setItem('token', result.token);
+                            console.log(token)
 
-                        window.location.href = "./../Admin/Admin.html";
-                    }
-                    else {
-
-                        window.location.href = "./../User/Dashboard1.html";
+                            window.location.href = "./../Admin/Admin.html";
+                        }
+                        else {
+                            console.log(token)
+                            window.location.href = "./../User/Dashboard.html";
+                        }
                     }
                 }
                 ,
@@ -168,14 +172,14 @@
                             <div class="form-group" style="margin:0 0 7% 0; ">
                                 <label>Nickname</label>
                                 <input class="form-control" id="nikname" placeholder="Nickname">
-                                
+
                             </div> <!-- form-group// -->
                             <div class="form-group" style="margin:0 0 7% 0; ">
                                 <label>Email</label>
-                                <input class="form-control" id="email" placeholder="Email" type ="email">
-                                
+                                <input class="form-control" id="email" placeholder="Email" type="email">
+
                             </div> <!-- form-group// -->
-                            
+
                             <div class="form-group" style="margin:0 0 30% 0; ">
                                 <label>Choose Password</label>
                                 <input class="form-control" id="spass" placeholder="******" type="password">
