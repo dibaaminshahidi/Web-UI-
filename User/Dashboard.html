@@ -68,7 +68,7 @@
           lockerid = ""
           book.style.display = "none";
           closeic.style.display = "none";
-          openic.style.display = "block";
+          openic.style.display = "none";
           unlock.style.display = "block";
           ret.style.display = "block";
         }
@@ -103,23 +103,22 @@ function unl(){
 
       if(result.reason == "hardware failure"){
         
-        document.getElementById("lockerid").innerHTML =lockerid
+        document.getElementById("lockerid").innerHTML =lockerid + "<br>" + "Hardware Failure"
+        // book.style.display = "none";
+        // closeic.style.display = "none";
+        // openic.style.display = "block";
+        // unlock.style.display = "none";
+        // ret.style.display = "block";
+      }
+      else{if(result.status == true){
+        document.getElementById("lockerid").innerHTML = lockerid
         book.style.display = "none";
         closeic.style.display = "none";
         openic.style.display = "block";
-        unlock.style.display = "block";
+        unlock.style.display = "none";
         ret.style.display = "block";
-      }
-
-      
-      else{
-        document.getElementById("lockerid").innerHTML = lockerid
-        book.style.display = "none";
-        closeic.style.display = "block";
-        openic.style.display = "none";
-        unlock.style.display = "block";
-        ret.style.display = "block";
-      }
+      }}
+    
     
     },
     error: function (jqXHR, textStatus, errorThrown) {
@@ -190,9 +189,8 @@ function unl(){
         },
         success: function (result) {
           console.log(result)
-          if (result.id == null) {
-
-          }
+          console.log(result)
+          location.reload()
         },
         error: function (jqXHR, textStatus, errorThrown) {
           alert('Error: ' + textStatus + ' - ' + errorThrown);
@@ -200,6 +198,27 @@ function unl(){
       });
     }
   </script>
+
+<script type="text/javascript">
+  function ret() {
+    var myURL = 'http://5.160.146.108:8080/locker/return'
+    $.ajax({
+      url: myURL,
+      dataType: 'json',
+      type: 'put',
+      headers: {
+        'token': token
+      },
+      success: function (result) {
+        console.log(result.status)
+        location.reload()
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert('Error: ' + textStatus + ' - ' + errorThrown);
+      }
+    });
+  }
+</script>
 
 </head>
 
@@ -238,7 +257,7 @@ function unl(){
           </svg>
         </div>
         <button type="button" class="btn btn-primary btn-lg btn-block " onclick="unl();return false" id="unlock"> Unlock </button>
-        <button type="button" class="btn btn-primary btn-lg btn-block " style="margin-bottom: 2%;" id="ret"> Return Locker </button>
+        <button type="button" class="btn btn-primary btn-lg btn-block " style="margin-bottom: 2%;" onclick= "ret();return false;" id="ret"> Return Locker </button>
         <button type="button" class="btn btn-primary btn-lg btn-block " onclick="take();return false" id="book">Book
           Locker </button>
 
