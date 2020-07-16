@@ -150,8 +150,13 @@
                 success: function (result) {
                     console.log(result)
                     console.log('ok')
+                    if(result.status == true){
                     document.getElementById("id").innerHTML = "Locker ID : " + id + " is Open Now.";
+                    document.getElementById("loginfo").innerHTML = ""}
+                    else{
+                        document.getElementById("id").innerHTML = result.reason;
                     document.getElementById("loginfo").innerHTML = ""
+                    }
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
