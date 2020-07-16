@@ -105,10 +105,8 @@
                     else {
                         var nolog = ""
                         var table = "  <thead><tr><<th>Action</th><th>User ID</th><th>User Name</th><th> Time</th></tr> </thead>";
-                        console.log(info)
                         for (i = 0; i < info.length; i++) {
-
-                            console.log(info[i].action)
+                            if(info[i].userInfo != null){
                             table += "  <tbody><tr><td>" +
                                 info[i].action +
                                 "</td><td>" +
@@ -118,7 +116,7 @@
                                 "</td><td>" +
                                 info[i].time +
                                 "</td></tr>  </tbody>";
-                        }
+                        }}
                         document.getElementById("loginfo").innerHTML = table;
 
                     }
